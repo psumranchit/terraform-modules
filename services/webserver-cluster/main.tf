@@ -24,6 +24,7 @@ resource "aws_launch_configuration" "example" {
 }
 
 resource "aws_autoscaling_group" "example" {
+  name = "${var.cluster_name}-asg"
   launch_configuration = aws_launch_configuration.example.name
   vpc_zone_identifier = data.aws_subnets.default.ids
   target_group_arns = [aws_lb_target_group.asg.arn]
