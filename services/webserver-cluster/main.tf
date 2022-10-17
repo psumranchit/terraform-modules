@@ -33,6 +33,15 @@ resource "aws_autoscaling_group" "example" {
   min_size = var.min_size
   max_size = var.max_size
 
+  # Use instance refrest to roll out changes
+  # to the ASG
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50
+    }
+  }
+
   tag {
     key = "Name"
     value = "${var.cluster_name}-asg"
